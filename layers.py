@@ -76,9 +76,10 @@ class Autoencoder(Layer):
 		Layer.__init__(self,n_in,n_out,W,b)
 		self.b_prime=theano.shared(numpy.zeros(n_in),borrow=True)
 		self.params.append(self.b_prime)
+		self.reg=0
 		self.inp=inp_vector
 		self.output=self.non_lins[non_linearity](T.dot(inp_vector,self.W.transpose())+self.b)
-		self.recovered=self.non_lins[non_linearity](T.dot(self.output,self.W)+self.b)
+		self.recovered=self.non_lins[non_linearity](T.dot(self.output,self.W)+self.b_prime)
 
 
 		
